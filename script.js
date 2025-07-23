@@ -1,31 +1,22 @@
-// Countdown
-const eventDate = new Date("2025-09-07T11:00:00").getTime();
-const counter = document.getElementById("counter");
+// script.js
 
-const updateCountdown = () => {
+// Countdown hanya kalau tak diletak inline dalam index.html
+function countdown() {
+  const eventDate = new Date("2025-09-07T00:00:00").getTime();
   const now = new Date().getTime();
-  const distance = eventDate - now;
+  const diff = eventDate - now;
 
-  if (distance < 0) {
-    counter.innerHTML = "Majlis telah berlangsung";
+  if (diff < 0) {
+    document.getElementById("counter").innerText = "Majlis telah berlangsung.";
     return;
   }
 
-  const hari = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const jam = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minit = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const saat = Math.floor((distance % (1000 * 60)) / 1000);
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
 
-  counter.innerHTML = `${hari} hari ${jam} jam ${minit} minit ${saat} saat`;
-};
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// RSVP Popup
-function openRSVP() {
-  document.getElementById("popupRSVP").style.display = "block";
+  document.getElementById("counter").innerText = `${days} hari ${hours} jam ${minutes} minit ${seconds} saat`;
 }
-function closeRSVP() {
-  document.getElementById("popupRSVP").style.display = "none";
-}
+
+setInterval(countdown, 1000);
